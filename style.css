@@ -57,3 +57,10 @@ button {
     text-align: center;
     cursor: pointer;
 }
+
+#errors {
+    color: #dc3545;
+    font-size: 0.5rem;
+    line-height: 1.25;
+    margin-bottom: 1rem;
+}

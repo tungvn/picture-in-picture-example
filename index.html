@@ -32,11 +32,13 @@
                     bật/tắt Picture-in-Picture
                 </p>
             </div>
+            <div id="errors"></div>
         </div>
     </body>
     <script type="text/javascript">
         const videoElement = document.querySelector("video");
         const pipButton = document.querySelector("button#pipButton");
+        const errors = document.getElementById("errors");
 
         async function startCamera() {
             try {
@@ -45,6 +47,7 @@
                 });
                 videoElement.srcObject = stream;
             } catch (error) {
+                errors.textContent += "Error accessing camera: " + error;
                 console.error("Error accessing camera:", error);
             }
         }
@@ -56,6 +59,7 @@
                 try {
                     await videoElement.requestPictureInPicture();
                 } catch (error) {
+                    errors.textContent += "Error enabling Picture-in-Picture mode: " + error;
                     console.error("Error enabling PiP:", error);
                 }
             }
