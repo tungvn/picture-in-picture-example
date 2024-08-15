@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Picture-in-Picture from Camera</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta charset="utf-8" />
+        <meta name="description" content="Picture-in-Picture from Camera" />
+        <meta name="author" content="Vũ Ngọc Tùng" />
+        <meta name="keywords" content="Picture-in-Picture, Camera" />
+        <meta name="robots" content="index, follow" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet" />
+
+        <link href="./style.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="container">
+            <div>
+                <h1>Hỗ trợ Picture-in-Picture</h1>
+                <div class="video">
+                    <video autoplay controls></video>
+                    <button id="pipButton">Toggle Picture-in-Picture</button>
+                </div>
+                <p><b>Hướng dẫn sử dụng:</b></p>
+                <p>
+                    Để sử dụng tính năng này, bạn cần cho phép truy cập Camera
+                </p>
+                <p>
+                    Ấn vào nút <strong>Toggle Picture-in-Picture</strong> để
+                    bật/tắt Picture-in-Picture
+                </p>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript">
+        const videoElement = document.querySelector("video");
+        const pipButton = document.querySelector("button#pipButton");
+
+        async function startCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: "user" },
+                });
+                videoElement.srcObject = stream;
+            } catch (error) {
+                console.error("Error accessing camera:", error);
+            }
+        }
+
+        pipButton.addEventListener("click", async () => {
+            if (document.pictureInPictureElement) {
+                await document.exitPictureInPicture();
+            } else {
+                try {
+                    await videoElement.requestPictureInPicture();
+                } catch (error) {
+                    console.error("Error enabling PiP:", error);
+                }
+            }
+        });
+
+        startCamera();
+    </script>
+</html>
