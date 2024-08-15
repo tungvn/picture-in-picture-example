@@ -47,7 +47,7 @@
                 });
                 videoElement.srcObject = stream;
             } catch (error) {
-                errors.textContent += "Error accessing camera: " + error;
+                errors.textContent = "Error accessing camera: " + error;
                 console.error("Error accessing camera:", error);
             }
         }
@@ -59,7 +59,7 @@
                 try {
                     await videoElement.requestPictureInPicture();
                 } catch (error) {
-                    errors.textContent += "Error enabling Picture-in-Picture mode: " + error;
+                    errors.textContent = "Error enabling Picture-in-Picture mode: " + error;
                     console.error("Error enabling PiP:", error);
                 }
             }
